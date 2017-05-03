@@ -17,8 +17,8 @@ public class MathResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("powerof/{index}")
-    public Response powerOf(@PathParam("index") int index, @QueryParam("number") Integer number,
-                             @QueryParam("numbers") List<Integer> numbers) {
+    public Response powerOf(@PathParam("index") int index, @QueryParam("number") Double number,
+                             @QueryParam("numbers") List<Double> numbers) {
         Double[] result = null;
         if (number != null) {
             result = new Double[1];
