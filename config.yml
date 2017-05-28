@@ -1,4 +1,15 @@
+# logging
 logging:
   level: INFO
   loggers:
     com.tapifolti.resttest: DEBUG
+  appenders:
+    - type: console
+    - type: file
+      threshold: INFO
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+      currentLogFilename: resttest.log
+      archivedLogFilenamePattern: resttest-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 5
+      timeZone: UTC
+      maxFileSize: 100MB
