@@ -56,7 +56,7 @@ public class MathResourceVectorStress {
     private static final int LOOP = 7000;
     @Test
     public void runVectorStressTest() {
-        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
         for (int i=0; i<LOOP; i++) {
             if (i%500 == 0) {
                 System.out.println("Loop: " + i);
@@ -77,7 +77,9 @@ public class MathResourceVectorStress {
             executor.execute(expvTask);
         }
         try {
-            Thread.sleep(10000);
+            while (executor.getCompletedTaskCount() < 3*LOOP) {
+                Thread.sleep(10000);
+            }
             executor.shutdown();
             executor.awaitTermination(10, TimeUnit.SECONDS);
         } catch(Exception e) {
